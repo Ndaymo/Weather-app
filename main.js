@@ -9,23 +9,11 @@ long = position.coords.longitude;
 lat = position.coords.latitude;
 name = position.coords.name;
 
-fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=1&language=en&format=json`)
-.then(response => response.json())
+const apiWindow = `https://geocoding-api.open-meteo.com/v1/search?name=Gent&count=10&language=en&format=json`
+
+fetch(apiWindow)
+.then(response =>response.json())
 .then (data => {
-    console.log( "longitude is " + long + " and latitude is " + lat + " that's " + name);
-    console.log(data);
-
-})
-
-const proxy = "https://cors-anywhere.herokuapp.com/";
-const api = `https://geocoding-api.open-meteo.com/v1/search?name=Gent&count=10&language=en&format=json`
-
-fetch(api)
-.then(response => {
-    return response.json();
-     
-})
-.then (response => {
     //console.log(data);
 });
 
@@ -40,3 +28,20 @@ fetch(api)
         h1.textContent = "Oops, looks like you don't have location turned on"
     }
 });
+
+const apiKey="65cc8878c68a497129c9e7134dbe309c";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=bujumbura";
+
+async function checkWeather() {
+const response = await fetch(apiUrl + `apiKey`);
+}
+
+
+
+fetch(`https://geocoding-api.open-meteo.com/v1/search?name=ghent&count=1&language=en&format=json`)
+.then(response => response.json())
+.then (data => {
+    console.log( "longitude is " + long + " and latitude is " + lat + " that's " + name);
+    console.log(data);
+
+})
