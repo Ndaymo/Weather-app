@@ -1,14 +1,24 @@
 window.addEventListener('load', ()=> {
     let long;
     let lat;
+    let name;
 
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(position => {
 long = position.coords.longitude;
 lat = position.coords.latitude;
-const proxy = 'https://cors-anywhere.herokuapp.com/';
-const api = `https://api.open-meteo.com/v1/forecast?${lat}&${long}
-&hourly=temperature_2m,precipitation_probability,precipitation`
+name = position.coords.name;
+
+fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=1&language=en&format=json`)
+.then(response => response.json())
+.then (data => {
+    console.log( "longitude is " + long + " and latitude is " + lat + " that's " + name);
+    console.log(data);
+
+})
+
+const proxy = "https://cors-anywhere.herokuapp.com/";
+const api = `https://geocoding-api.open-meteo.com/v1/search?name=Gent&count=10&language=en&format=json`
 
 fetch(api)
 .then(response => {
@@ -16,7 +26,7 @@ fetch(api)
      
 })
 .then (response => {
-    console.log(data);
+    //console.log(data);
 });
 
 

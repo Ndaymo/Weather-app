@@ -16,10 +16,11 @@ body{
 }
 .search {
     position: absolute;
-    top: 20vh;
-    left: 40%;
+    top: 20%;
+    left: 33%;
     z-index: 1;
-    border: 1px solid gray;
+    border: 1px solid rgb(242, 0, 0);
+    
   }
 
 .search input {
