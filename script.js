@@ -1,31 +1,3 @@
-// const searchbtn = document.querySelector(".search-btn");
-
-// searchbtn.addEventListener("click", async (event) => {
-//   event.preventDefault();
-
-// const searchInput = document.querySelector(".search-input");
-
-// console.log(searchInput.value + "What the user wrote");
-
-//   const locationApi = `https://geocoding-api.open-meteo.com/v1/search?name=${searchInput.value}&count=1&language=en&format=json`;
-
-//   const locationResponse = await fetch(locationApi);
-//   const locationData = await locationResponse.json();
-//   console.log(locationData.results[0].country);
-
-//   let lat = locationData.results[0].latitude;
-//   let long = locationData.results[0].longitude;
-
-//   //const weatherApi = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,precipitation,rain,showers,weather_code,cloud_cover,visibility,wind_speed_10m,wind_speed_80m,wind_speed_120m,wind_speed_180m,wind_direction_10m,wind_direction_80m,wind_direction_120m,wind_direction_180m,wind_gusts_10m&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,rain_sum,showers_sum,snowfall_sum,precipitation_hours,precipitation_probability_max`;
-//   const weatherApiTwwo = `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,precipitation,rain,showers,weather_code,pressure_msl,visibility,wind_speed_10m,wind_direction_10m,temperature_80m,temperature_120m,temperature_180m&daily=weather_code,temperature_2m_max,precipitation_sum,rain_sum,precipitation_hours,precipitation_probability_max,wind_speed_10m_max&forecast_days=16`
-//   const weatherResponse = await fetch(weatherApiTwwo);
-//   const weatherData = await weatherResponse.json();
-
-//   console.log(weatherData);
-//   console.log(weatherData.daily.time[5]);
-//   console.log(weatherData.daily.weather_code[1]);
-
-// });
 
 const WMO_CODES = {
   0: {
@@ -378,6 +350,42 @@ function createWeatherCard(weatherData, i) {
   const card = document.createElement("div");
   card.classList.add("card");
 
+
+
+  const date = new Date();
+  const heading = document.createElement("h3");
+  heading.textContent = daysOfTheWeek[(date.getDay() + i) % 7];
+  if (i == 0) heading.textContent = "Today";
+  card.appendChild(heading);
+
+  const weatherImgTemp = document.createElement("div");
+  weatherImgTemp.classList.add('weatherImgTempClass')
+  WMO_CODES["name"];
+  const image = document.createElement("img");
+  image.src = WMO_CODES[weatherData.daily.weather_code[i]].day.image;
+
+  weatherImgTemp.appendChild(image);
+
+  const temperature = document.createElement("span");
+  temperature.textContent = `${weatherData.daily.temperature_2m_max[i]}°C`;
+  temperature.classList.add("temperatureClass");
+  weatherImgTemp.appendChild(temperature);
+
+  card.appendChild(weatherImgTemp);
+
+  const windIconPercentage = document.createElement("div");
+  windIconPercentage.classList.add('windIconPercentageClass')
+  const windIcon = document.createElement("img");
+  windIcon.src = "./Assets/wind.png";
+  windIcon.classList.add("windICon");
+  windIconPercentage.appendChild(windIcon);
+
+  
+  const wind = document.createElement("span");
+  wind.textContent = ` ${weatherData.daily.wind_speed_10m_max[i]}%`;
+  windIconPercentage.appendChild(wind);
+  card.appendChild(windIconPercentage);
+
   if (i === 0) {
     card.classList.add("today");
     card.classList.remove("card");
@@ -390,41 +398,15 @@ function createWeatherCard(weatherData, i) {
     hourlyWeather.appendChild(listItem1);
 
     const listItem2 = document.createElement("li");
-    listItem2.textContent = `Rain: ${weatherData.hourly.rain[i]}`;
+    listItem2.textContent = `Precipitation: ${weatherData.hourly.precipitation[i]}`;
     hourlyWeather.appendChild(listItem2);
 
     const listItem3 = document.createElement("li");
-    listItem3.textContent = `Time: ${weatherData.hourly.temperature_2m[i]}`;
+    listItem3.textContent = `Wind: ${weatherData.hourly.wind_speed_10m[i]}`;
     hourlyWeather.appendChild(listItem3);
 
     card.appendChild(hourlyWeather);
   }
-
-  const date = new Date();
-  const heading = document.createElement("h3");
-  heading.textContent = daysOfTheWeek[(date.getDay() + i) % 7];
-  if (i == 0) heading.textContent = "Today";
-  card.appendChild(heading);
-
-  WMO_CODES["name"];
-  const image = document.createElement("img");
-  image.src = WMO_CODES[weatherData.daily.weather_code[i]].day.image;
-
-  card.appendChild(image);
-
-  const temperature = document.createElement("span");
-  temperature.textContent = `${weatherData.daily.temperature_2m_max[i]}°C`;
-  temperature.classList.add("temperatureClass");
-  card.appendChild(temperature);
-
-  const windIcon = document.createElement("img");
-  windIcon.src = "./Assets/wind.png";
-  windIcon.classList.add("windICon");
-  card.appendChild(windIcon);
-
-  const wind = document.createElement("span");
-  wind.textContent = ` ${weatherData.daily.wind_speed_10m_max[i]}%`;
-  card.appendChild(wind);
 
   container.appendChild(card);
 }

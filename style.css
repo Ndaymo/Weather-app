@@ -72,20 +72,38 @@ body {
 }
 .hourlyUnorderedList{
   list-style-type: none;
+  padding-top: 2%;
 }
 .today {
   display: flex;
+  flex-wrap: wrap;
+  gap: 1em;;
   width: 90%;
   background: linear-gradient(135deg, #00feba, #5b548a);
   color: #fff;
   margin: 15px auto 0;
   padding: 15px 35px;
   border-radius: 20px;
-  text-align: center;
+}
+.today h3{
+ font-size: 20px;
+}
+.today .windIconPercentageClass{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.today .weatherImgTempClass{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .today .windICon {
-  width: 10%;
+  width: 60%;
+  height: auto;
+  padding-bottom: 36%;
+  padding-top: 30%;
 }
 
 .container {
@@ -108,7 +126,7 @@ body {
   border-radius: 20px;
   text-align: center;
   height: 5%;
-  border: 1px solid purple;
+  background-color: lightblue;
 }
 span .temperatureClass {
   width: 100%;
